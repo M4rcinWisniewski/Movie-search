@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Autocomplete, Box, TextField, List, ListItem, ListItemAvatar, Typography } from '@mui/material';
+import { Autocomplete, Box, TextField, List, ListItem, ListItemAvatar, Typography, IconButton } from '@mui/material';
 import { Element, scroller } from 'react-scroll';
+import SearchIcon from '@mui/icons-material/Search';
 
 function MovieData() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,7 +13,7 @@ function MovieData() {
 
   const scrollToSection = (List) => {
     scroller.scrollTo(List, {
-      duration: 800,
+      duration: 900,
       delay: 0,
       smooth: 'easeInOutQuart',
     });
@@ -55,10 +56,17 @@ function MovieData() {
     }
   };
 
+  const handleButtonClick = () => {
+
+      handleSearch();
+      scrollToSection('List');
+    
+  };
+
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem' }}>
-        <Autocomplete
+      <Autocomplete
           disableClearable
           options={suggestions}
           inputValue={searchQuery}
@@ -67,22 +75,28 @@ function MovieData() {
             handleSearchSuggestions(newValue); // Fetch suggestions as you type
           }}
           renderInput={params => (
-            <TextField
-              sx={{ width: '30vw', marginTop: '5vh' }}
+            <Box sx={{display:'flex', justifyContent: 'center', alignItems: 'center', flexDirection:'column', gap:'3vh'}}><TextField
+              sx={{ width: '30vw', marginTop: '5vh', minWidth:'230px' }}
               {...params}
               label="Search for a movie..."
               variant="standard"
               onKeyPress={handleKeyPress}
-            />
+            /><IconButton  onClick={ handleButtonClick} sx={{fontSize:'1.2rem', borderRadius:'30px', transition:'.2s','&:hover':{color:'#fc8383'}}}>Search<SearchIcon  sx={{marginLeft:'10px'}}/></IconButton></Box>
+            
           )}
         />
+          
+
       </Box>
-      <div style={{
-        background: '#f1f1f1',
+      <div 
+        id='box'
+        style={{
+        background: '#fc8383',
         marginBottom: '10vh',
         marginTop: '5vh',
-        boxShadow:' 0px 8px 50px -17px rgba(66, 68, 90, 1)',
-        borderRadius:'25px'
+        boxShadow:' 0px 0px 20px 0px rgba(66, 68, 90, .7)',
+        // borderRadius:'25px'
+        
       }}>
         <Box
           sx={{
@@ -94,20 +108,23 @@ function MovieData() {
         />
         <Element name="List">
           <List
+          
             sx={{
               overflowY: 'auto',
               overflowX: 'hidden',
               height: '60vh',
               width: '60vw',
-              margin: '5vw'
+              margin: '5vw',
             }}
           >
             {searchResults.map(movie => (
-              <ListItem key={movie.id}>
+              <ListItem key={movie.id} id="elements">
                 <ListItemAvatar>
                   <img
+                  
                     style={{
                       width: '10vw',
+                      minWidth: '100px',
                       marginRight: '1vw',
                     }}
                     onError="this.onerror=null; this.src='/images/image_not_available.png';"
@@ -119,10 +136,11 @@ function MovieData() {
                 <Box sx={{
                     display:'flex',
                     flexDirection:'column'
-                }}><Typography sx={{
-                    fontSize: '2rem'
+                }}><Typography id="title"sx={{
+                    fontSize: '2rem',
+                    color: '#ffffff'
                 }}>{movie.title}</Typography>
-                <Typography sx={{color:'#777777'}}>{movie.overview}</Typography></Box>
+                <Typography id="overview" sx={{color:'#dddddd'}}>{movie.overview}</Typography></Box>
 
               </ListItem>
             ))}

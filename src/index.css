@@ -9,5 +9,44 @@ body {
   }
   #title {
     width: 100%;
+    text-align: center;
+    font-size: 2.2rem;
   }
+  #elements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #img {
+    width: 20vw;
+  }
+  #title{
+    text-align: center;
+  }
+  #overview{
+    text-align: justify;
+  }
+}
+
+/* Target the scrollbar */
+::-webkit-scrollbar {
+  width: 4px; /* Width of the scrollbar */
+}
+
+/* Track (the background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle (the draggable part of the scrollbar) */
+#elements::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #1e1e1e;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
